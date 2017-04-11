@@ -19,14 +19,13 @@
 
 /*
  * http://tools.ietf.org/html/rfc2445
- * 
+ *
  * Evolution UI offers to sync Memo to local computer
  * TODO: check this
  */
 
 
 #include <libecal/libecal.h>        /* ECalClient      */
-#include <libgd/gd.h>               /* Embed in frame  */
 
 #include "biji-memo-provider.h"
 #include "biji-memo-note.h"
@@ -409,8 +408,7 @@ _get_icon (BijiMemoProvider *self,
   ESourceExtension *ext;
   const gchar      *color;
   GdkRGBA           rgba;
-  GdkPixbuf        *pix, *embed;
-  GtkBorder         frame_slice = { 4, 3, 3, 6 };
+  GdkPixbuf        *pix;
 
   ext = e_source_get_extension (self->priv->source, E_SOURCE_EXTENSION_MEMO_LIST);
   color = e_source_selectable_get_color (E_SOURCE_SELECTABLE (ext));
@@ -419,12 +417,9 @@ _get_icon (BijiMemoProvider *self,
     return FALSE;
 
   pix = get_pixbuf_from_color (&rgba, 48);
-  embed = gd_embed_image_in_frame (pix, "resource:///org/gnome/bijiben/thumbnail-frame.png",
-                                    &frame_slice, &frame_slice);
-  *result = gtk_image_new_from_pixbuf (embed);
+  *result = gtk_image_new_from_pixbuf (pix);
 
   g_clear_object (&pix);
-  g_clear_object (&embed);
 
   return TRUE;
 }
