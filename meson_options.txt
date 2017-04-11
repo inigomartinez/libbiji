@@ -1,0 +1,1 @@
+option('enable-zeitgeist', type : 'boolean', value : true, description : 'Enable Zeitgeist')
